@@ -6,7 +6,7 @@ using namespace std;
 
 char map[HEIGHT][WIDTH];
 char cellSign = '.';
-int antX = HEIGHT / 2; 
+int antX = HEIGHT / 2;
 int antY = WIDTH / 2;  
 int countAntMoves = 0;
 
@@ -42,56 +42,37 @@ bool IsTheCellEmpty(int nextCellX, int nextCellY) // checks is the cell empty or
 	}
 }
 
+void ChooseDirection(int x, int y, int dir1, int dir2)
+{
+	countAntMoves++;
+	if (IsTheCellEmpty(x, y) == false) //choose next direction 
+	{
+		ant = Direction(dir1);
+	}
+	else
+	{
+		ant = Direction(dir2);
+	}
+}
+
 void AntMovement()
 {
 	switch (ant)
 	{
 	case Direction::down:
-		countAntMoves++;
-		if (IsTheCellEmpty(antX + 1, antY) == false) //choose next direction 
-		{
-			ant = Direction::right;
-		}
-		else
-		{
-			ant = Direction::left;
-		}
+		ChooseDirection(antX + 1, antY, 2, 3);
 		antX++;
 		break;
 	case Direction::up:
-		countAntMoves++;
-		if (IsTheCellEmpty(antX - 1, antY) == false)//choose next direction
-		{
-			ant = Direction::left;
-		}
-		else
-		{
-			ant = Direction::right;
-		}
+		ChooseDirection(antX - 1, antY, 3, 2);
 		antX--;
 		break;
 	case Direction::right:
-		countAntMoves++;
-		if (IsTheCellEmpty(antX, antY + 1) == false)//choose next direction
-		{
-			ant = Direction::up;
-		}
-		else
-		{
-			ant = Direction::down;
-		}
+		ChooseDirection(antX, antY + 1, 1, 0);
 		antY++;
 		break;
 	case Direction::left:
-		countAntMoves++;
-		if (IsTheCellEmpty(antX, antY - 1) == false)//choose next direction
-		{
-			ant = Direction::down;
-		}
-		else
-		{
-			ant = Direction::up;
-		}
+		ChooseDirection(antX, antY - 1, 0, 1);
 		antY--;
 		break;
 	}
